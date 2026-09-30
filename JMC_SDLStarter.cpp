@@ -2,6 +2,7 @@
 #define SDL_MAIN_USE_CALLBACKS 1  /* use the callbacks instead of main() */
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include "PointerDemo.h"
 
 using namespace std;
 
@@ -14,8 +15,8 @@ static SDL_Renderer* renderer = NULL;
 static SDL_Texture* texture = NULL;
 
 static const char* ProjectName = "Dungeon Crawler 2026";
+static PointerDemo* PointerDemo;
 
-void Playground();
 
 /* This function runs once at startup. */
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
@@ -32,7 +33,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
         return SDL_APP_FAILURE;
     }
 
-
+    PointerDemo->DoDemo();
 
     return SDL_APP_CONTINUE;  /* carry on with the program! */
 }
@@ -82,7 +83,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     SDL_RenderClear(renderer);  /* start with a blank canvas. */
 
     // Your Update code goes here.
-    Playground();
+
 
     SDL_RenderPresent(renderer);  /* put it all on the screen! */
 
@@ -93,16 +94,4 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 void SDL_AppQuit(void* appstate, SDL_AppResult result)
 {    
     /* SDL will clean up the window/renderer for us. */
-}
-
-void Playground()
-{
-    SDL_FRect rect{};
-    /* draw a unfilled rectangle in-set a little bit. */
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);  /* green, full alpha */
-    rect.x += 300;
-    rect.y += 300;
-    rect.w -= 600;
-    rect.h -= 600;
-    SDL_RenderRect(renderer, &rect);
 }
